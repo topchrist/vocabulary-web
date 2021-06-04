@@ -1,0 +1,74 @@
+<h1 *ngIf="isAddMode">Add Word</h1>
+<h1 *ngIf="!isAddMode">Edit Word</h1>
+<div class="card">
+  <div *ngIf="isAddMode" class="card-header text-white bg-primary mb-3">
+    Add word
+  </div>
+  <div *ngIf="!isAddMode" class="card-header text-white bg-primary mb-3">
+    Edit word
+  </div>
+  <div class="card-body">
+      <form [formGroup]="wordForm" (ngSubmit)="onSubmitForm()">
+
+      <div class="form-group">
+        <label for="singularName">
+          Singular form's name 
+        </label>
+        <input type="text" id="singularName" class="form-control" formControlName="singularName"/>
+      </div>
+      <div class="form-group">
+        <label for="plural">Plural form's name</label>
+        <input type="text" id="plural" class="form-control" formControlName="plural"/>
+      </div>
+      <div class="form-group">
+        <label>Nature</label>
+        <input type="text" formControlName="nature" class="form-control"  />
+      </div>
+      <div class="form-group">
+        <label for="idLevel">Level</label>
+        <select id="idLevel" class="form-control" formControlName="idLevel">
+            <option *ngFor="let level of levels" [value]="level.id" >{{ level.name }}</option>
+        </select>
+      </div>
+
+      <div formArrayName="definitions">
+        <div class="card" *ngFor="let definition of definitions.controls; let i = index" >
+          <div class="card-body" [formGroupName]="i">
+              <h5>Definition {{i + 1}}</h5>
+              <div [formGroup]="definition" >
+                
+                <div class="form-group">
+                  <label for="description">
+                    Description 
+                  </label>
+                  <input type="text" id="description" class="form-control" formControlName="description"/>
+                </div>
+                
+
+                <div formArrayName="examples">
+                  <div [formGroupName]="j" *ngFor="let example of getExamples(i).controls; let j=index">
+                    <div [formGroup]="example">
+                      <div class="form-group">
+                        <label for="example">examples {{j+1}}</label>
+                        <input type="text" id="example" class="form-control" formControlName="statement"/>
+                        <button type="button" class="btn btn-danger" (click)="onDeleteExample(i, j)" *ngIf="getExamples(i).controls.length > 1">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>   
+              <button type="button" class="btn btn-danger" (click)="onDeleteDefinition(i)" *ngIf="definitions.controls.length > 1">Delete</button>
+              <button type="button" class="btn btn-primary" (click)="onAddExample(i)">Add Example</button>
+          </div>
+        </div>
+      </div>
+        
+      <br/>
+          
+      <button type="button" class="btn btn-primary" (click)="onAddDefinition()">Add definition</button>
+      <button type="submit" [disabled]="wordForm.invalid" class="btn btn-primary">save</button>
+      </form>
+    </div>
+</div>
+ 

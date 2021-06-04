@@ -1,0 +1,34 @@
+
+<div class="card">
+    <div class="card-header text-white bg-primary">Word's List</div>
+    <div class="card-body">
+        <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Nature</th>
+                <th>Singular form</th>
+                <th>Plural form</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let word of words">
+                <span *ngIf="words && words.length>0"> <td>{{ getLevel(word.idLevel) }}</td> </span>
+                <span *ngIf="words==null || words.length==0"> <td></td> </span>
+                <td>{{ word.nature }}</td> 
+                <td>{{ word.name }}</td>
+                <td>{{ word.plural }}</td>
+                <td style="white-space: nowrap">
+                  <a routerLink="../word-edit/{{word.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                  <button (click)="deleteWord(word.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="false">
+                      <span>Delete</span>
+                  </button>
+              </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+ 
+

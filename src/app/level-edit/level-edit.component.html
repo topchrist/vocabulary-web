@@ -1,0 +1,43 @@
+<h1 *ngIf="isAddMode">Add Level</h1>
+<h1 *ngIf="!isAddMode">Edit Level</h1>
+<div class="card">
+    <div *ngIf="isAddMode" class="card-header text-white bg-primary mb-3">
+      Add level
+    </div>
+    <div *ngIf="!isAddMode" class="card-header text-white bg-primary mb-3">
+      Edit level
+    </div>
+    <div class="card-body">
+      <form #levelForm="ngForm" (ngSubmit)="onSubmit(levelForm)" >
+        
+        <div class="form-group">
+          <label for="level_order">
+            Order
+          </label>
+          <input type="number" id="level_order" class="form-control" name="level_order" [(ngModel)] = "level.order" required>
+        </div>
+        <div class="form-group">
+          <label for="level_name">
+            Level's name
+          </label>
+          <input type="text" id="level_name" class="form-control" name="level_name" [(ngModel)] = "level.name" required>
+        </div>
+        <div class="form-group">
+          <label for="level_description">
+            Level description
+          </label>
+          <input type="text" id="level_description" class="form-control" name="level_description" [(ngModel)] = "level.description" >
+        </div>
+
+        <div class="form-group">
+          <button [disabled]="levelForm.invalid" class="btn btn-primary" type="submit">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Save
+          </button>
+          <a *ngIf="!isAddMode" routerLink="../../levels" class="btn btn-link">Cancel</a>
+        </div>
+    
+      </form>
+    </div>
+  </div>
+  

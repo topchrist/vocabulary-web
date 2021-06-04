@@ -1,0 +1,27 @@
+
+<div class="card">
+    <div class="card-header text-white bg-primary mb-3">
+      New level
+    </div>
+    <div class="card-body">
+      <form #levelForm="ngForm" (ngSubmit)="onSubmit(levelForm)" >
+  
+        <div class="form-group">
+          <label for="level_name">
+            Level's name
+          </label>
+          <input type="text" id="level_name" class="form-control" name="level_name" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="level_description">
+            Level description
+          </label>
+          <input type="text" id="level_description" class="form-control" name="level_description" ngModel required>
+        </div>
+  
+        <button class="btn btn-primary" type="submit" [disabled]="levelForm.invalid">Save</button>
+  
+      </form>
+    </div>
+  </div>
+  
